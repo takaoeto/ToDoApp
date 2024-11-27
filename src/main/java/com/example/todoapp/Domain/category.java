@@ -1,9 +1,9 @@
 package com.example.todoapp.Domain;
 
-public class category {
+public class Category {
     private Integer id;
     private String category;
-    
+
     public Integer getId() {
         return id;
     }
