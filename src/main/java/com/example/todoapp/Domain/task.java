@@ -1,9 +1,9 @@
 package com.example.todoapp.Domain;
 
-public class task {
+public class Task {
     private Integer id;
     private String title;
-    private Integer CategoryId;
+    private Category category;
 
     public Integer getId() {
         return id;
@@ -17,14 +17,15 @@ public class task {
     public void setTitle(String title) {
         this.title = title;
     }
-    public Integer getCategoryId() {
-        return CategoryId;
+    public Category getCategory() {
+        return category;
     }
-    public void setCategoryId(Integer categoryId) {
-        CategoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
+    
     @Override
     public String toString() {
-        return "taskForm [id=" + id + ", title=" + title + ", CategoryId=" + CategoryId + "]";
+        return "Task [id=" + id + ", title=" + title + ", category=" + category + "]";
     }
 }
