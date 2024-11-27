@@ -1,6 +1,6 @@
 package com.example.todoapp.Form;
 
-public class taskForm {
+public class TaskForm {
     private Integer id;
     private String title;
     private Integer CategoryId;

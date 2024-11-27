@@ -14,7 +14,7 @@ import com.example.todoapp.Domain.Category;
 import com.example.todoapp.Domain.Task;
 
 @Repository
-public class taskRepository {
+public class TaskRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate template;
