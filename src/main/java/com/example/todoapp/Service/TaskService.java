@@ -18,6 +18,10 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
+    public List<Task> findByCategoryId(Integer categoryId) {
+        return taskRepository.findByCategoryId(categoryId);
+    }
+
     public List<Task> findAll() {
         return taskRepository.findAll();
     }

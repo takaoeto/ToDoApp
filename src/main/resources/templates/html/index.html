@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="//www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ToDoApp</title>
+        <link rel="stylesheet" href="../css/common.css" th:href="@{/css/common.css}">
+    </head>
+    <body>
+        <strong><h1>ToDoリスト</h1></strong>
+        <form id="createTaskForm">
+            <table>
+                <tr>
+                    <th>タスクの作成</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="title" id="taskTitle" placeholder="ジムに行く" required></td>
+                </tr>
+            </table>
+            <button type="button" id="createTaskBtn">作成</button>
+        </form>
+
+        <div class="tables-container">
+            <table id="todoList1">
+                <tr>
+                    <th>ToDo</th>
+                </tr>
+                <!-- タスクリストがここに動的に追加される -->
+            </table>
+
+            <table id="todoList2">
+                <tr>
+                    <th>作業中</th>
+                </tr>
+            </table>
+
+            <table id="todoList3">
+                <tr>
+                    <th>確認待ち</th>
+                </tr>
+            </table>
+
+            <table id="todoList4">
+                <tr>
+                    <th>完了</th>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <script src="../js/common.js" th:src="@{/js/common.js}"></script>
+</html>
