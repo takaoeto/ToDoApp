@@ -27,6 +27,7 @@ public class TaskRepository {
         Category category = new Category();
         category.setId(rs.getInt("c_id"));
         category.setCategory(rs.getString("c_category"));
+        task.setCategory(category);
         return task;
     };
 
@@ -36,11 +37,25 @@ public class TaskRepository {
                 FROM task AS t
                 LEFT OUTER JOIN category AS c
                 ON t.category_id = c.id
-                WHERE id = :id
+                WHERE t.id = :id
                 """;
         MapSqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
         Task task = template.queryForObject(sql, param, TASK_ROW_MAPPER);
         return task;
+            
+    }
+
+    public List<Task> findByCategoryId(Integer categoryId) {
+        String sql = """
+                SELECT t.id AS t_id, t.title AS t_title, c.id AS c_id, c.category AS c_category
+                FROM task AS t
+                LEFT OUTER JOIN category AS c
+                ON t.category_id = c.id
+                WHERE category_id = :categoryId
+                """;
+        MapSqlParameterSource param = new MapSqlParameterSource().addValue("categoryId", categoryId);
+        List<Task> taskList = template.query(sql, param, TASK_ROW_MAPPER);
+        return taskList;
             
     }
 
@@ -50,16 +65,15 @@ public class TaskRepository {
                 FROM task AS t
                 LEFT OUTER JOIN category AS c
                 ON t.category_id = c.id
-                WHERE id = :id
                 """;
-        List<Task> task = template.query(sql, TASK_ROW_MAPPER);
-        return task;
+        List<Task> taskList = template.query(sql, TASK_ROW_MAPPER);
+        return taskList;
     }
 
     public void insert(Task task) {
         String sql = """
                 INSERT INTO task(title, category_id)
-                            VALUES(:title, :cateogryId)
+                            VALUES(:title, :categoryId)
                 """;
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("title", task.getTitle())
@@ -70,7 +84,8 @@ public class TaskRepository {
     public void update(Task task) {
         String sql = """
                 UPDATE task
-                SET id=:id, title=:title, category_id=:categoryId
+                SET title=:title, category_id=:categoryId
+                WHERE id = :id
                 """;
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("id", task.getId())

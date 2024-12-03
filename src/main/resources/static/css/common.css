@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+/* 作成ボタンの下に隙間を追加 */
+button {
+    margin-bottom: 80px; /* ボタン下部に隙間を追加 */
+    padding: 5px 10px; /* ボタンのパディングを少し小さく */
+    font-size: 14px; /* フォントサイズを少し小さく */
+}
+
+.tables-container {
+    display: flex;
+    justify-content: flex-start;  /* テーブルを左寄せにして右端まで広がらないようにする */
+    gap: 110px;  /* テーブル同士の隙間を設定 */
+    flex-wrap: wrap;  /* 幅が足りない場合にテーブルが折り返す */
+    max-width: 100%;  /* 親コンテナが画面幅を超えないようにする */
+}
+
+table {
+    border-collapse: collapse;
+    width: 400px;  /* 各テーブルの幅を400pxに設定 */
+}
+
+/* セルのスタイル */
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px 10px; /* セルの内側のスペースを少なく */
+    text-align: center;
+    word-wrap: break-word; /* 長い単語を折り返す */
+    white-space: normal; /* 単語が長くなった場合に折り返す */
+}
+
+/* タスクタイトルを左寄せ */
+td:first-child {
+    text-align: left; /* 最初のセル（タスクタイトル）のテキストを左寄せ */
+}
+
+/* ヘッダーの背景色 */
+th {
+    background-color: #f2f2f2;
+    display: table-cell !important; /* 強制的に表示 */
+}
+
+/* 編集・削除ボタンのセルスタイル */
+td button {
+    padding: 5px 8px; /* ボタンの内側のスペースを少なく */
+    font-size: 12px; /* フォントサイズを小さく */
+    margin: 0 5px; /* ボタン間に少し隙間を */
+    cursor: pointer;
+    border: none;  /* ボーダーを消してコンパクトに */
+    background-color: #f2f2f2;  /* 背景色 */
+}
+
+td button:hover {
+    background-color: #e0e0e0; /* ホバー時の色 */
+}
+
+/* テーブルの一番右のテーブルには右側のマージンを適用しない */
+.tables-container table:last-child {
+    margin-right: 0;
+}
