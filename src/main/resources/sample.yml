@@ -1,0 +1,161 @@
+openapi: 3.0.0
+info:
+  title: ToDo Application API
+  description: ToDoアプリケーションでタスクを管理するためのAPIです。
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+
+paths:
+  /tasks:
+    post:
+      summary: 新規タスクの作成
+      description: タイトルにタスク名を記入し、新たにタスクを作成
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "New Task Title"
+              required:
+                - title
+      responses:
+        200:
+          description: タスク作成成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    example: "New Task Title"
+        500:
+          description: 内部サーバーエラー
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "作成処理に失敗しました"
+                  error:
+                    type: string
+                    example: "Error message"
+
+  /tasks/{categoryId}:
+    get:
+      summary: カテゴリーごとにタスクを取得
+      description: |
+        特定のカテゴリに属するすべてのタスクを取得する
+
+        `categoryId`には以下の値を指定できます:
+        - 1: ToDo
+        - 2: 作業中
+        - 3: 確認待ち
+        - 4: 完了
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: |
+            以下カテゴリーのID。指定可能な値は:
+            - 1: ToDo
+            - 2: 作業中
+            - 3: 確認待ち
+            - 4: 完了
+      responses:
+        200:
+          description: 指定されたカテゴリのタスクのリスト
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        500:
+          description: 内部サーバーエラー
+
+  /tasks/{id}:
+    put:
+      summary: タスクの内容を更新
+      description: 既存のタスクのタイトルとカテゴリを更新する
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: 更新するタスクのID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Updated Task Title"
+                category_id:
+                  type: integer
+                  example: 2
+              required:
+                - title
+                - category_id
+      responses:
+        200:
+          description: タスクの更新に成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        500:
+          description: 内部サーバエラー
+
+    delete:
+      summary: タスクの削除
+      description: タスク ID に基づいて既存のタスクを削除する
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: 削除するタスクのID
+      responses:
+        200:
+          description: タスクの削除に成功
+        500:
+          description: 内部サーバエラー
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Task Title"
+        category:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: "ToDo"
