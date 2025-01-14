@@ -37,7 +37,7 @@ public class TaskApiController {
     }
 
 
-    @PostMapping("/Task")
+    @PostMapping("/tasks")
     public ResponseEntity<Map<String, Object>> insert(@RequestBody Map<String, Object> map) {
         Map<String, Object> response = new HashMap<>();
         String title = (String)map.get("title");
@@ -60,7 +60,7 @@ public class TaskApiController {
         }
     }
 
-    @GetMapping("/Task/{categoryId}")
+    @GetMapping("/tasks/{categoryId}")
     public ResponseEntity<List<Task>> findByCategoryId(@PathVariable("categoryId") Integer categoryId) {
         try {
             List<Task> taskList = taskService.findByCategoryId(categoryId);
@@ -72,7 +72,7 @@ public class TaskApiController {
     }
     
     
-    @PutMapping("/Task/{id}")                           
+    @PutMapping("/tasks/{id}")                           
     public ResponseEntity<Map<String, Object>> update(@PathVariable("id") Integer id, @RequestBody Map<String, Object> map) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -95,11 +95,11 @@ public class TaskApiController {
     }
 
     
-    @DeleteMapping("/Task/{id}")
+    @DeleteMapping("/tasks/{id}")
         public ResponseEntity<Void> deleteTask(@PathVariable("id") Integer id) {
         try {
             taskService.delete(id);
-            return ResponseEntity.noContent().build(); 
+            return ResponseEntity.ok().build(); 
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
