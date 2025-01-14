@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 無視するファイル
+application.yml
+common.js
+
